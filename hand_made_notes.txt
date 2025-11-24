@@ -1,0 +1,15 @@
+changes done by antigravity 
+1. settings.py (media and static files)
+2. models.py (Category and Product and cart and cart item and removed useerinfo)
+3. admin.py (registering models) - at this point idk tf is going on lol
+4. views.py (all views , lot of django orm code for database)
+5. urls.py (all urls)
+6. base.html (changes in navbar ig, logout feature)
+7. index.html (for some reason he aren;t importing base.html)
+8. category.html (don;t know what r the changes at this point)
+9. product.html (same as )
+10. 
+
+
+note :
+    * in views.py we will use django orm to fetch data from database and send it to templates like pruducts details

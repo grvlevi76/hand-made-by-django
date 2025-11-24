@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container section">
+    <div class="cart-container">
+        <h1 class="cart-title font-display gradient-text">Your Shopping Cart</h1>
+
+        {% if cart.items.all %}
+        <div class="cart-card">
+            <!-- Desktop Table View -->
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart.items.all %}
+                    <tr>
+                        <td>
+                            <div class="cart-item">
+                                <div class="cart-item-image">
+                                    {% if item.product.image %}
+                                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                                    {% else %}
+                                    <span
+                                        style="display: flex; align-items: center; justify-content: center; height: 100%; font-size: 1.5rem;">🎨</span>
+                                    {% endif %}
+                                </div>
+                                <div class="cart-item-details">
+                                    <a href="{% url 'product_detail' item.product.slug %}" class="cart-item-title">{{
+                                        item.product.name }}</a>
+                                    <p class="cart-item-category">{{ item.product.category.name }}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="cart-price">₹{{ item.product.price }}</td>
+                        <td class="cart-quantity">
+                            <span class="quantity-badge">{{ item.quantity }}</span>
+                        </td>
+                        <td class="cart-total gradient-text">₹{{ item.total_price }}</td>
+                        <td class="cart-remove">
+                            <a href="{% url 'remove_from_cart' item.id %}" class="btn-remove" title="Remove">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Mobile Card View -->
+            <div class="cart-mobile">
+                {% for item in cart.items.all %}
+                <div class="cart-mobile-item">
+                    <div class="cart-mobile-header">
+                        <div class="cart-item-image">
+                            {% if item.product.image %}
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                            {% else %}
+                            <span
+                                style="display: flex; align-items: center; justify-content: center; height: 100%; font-size: 2rem;">🎨</span>
+                            {% endif %}
+                        </div>
+                        <div style="flex-grow: 1;">
+                            <h3 style="font-weight: 700; color: var(--gray-800); margin-bottom: 0.25rem;">{{
+                                item.product.name }}</h3>
+                            <p style="font-size: 0.875rem; color: var(--gray-500); margin-bottom: 0.5rem;">{{
+                                item.product.category.name }}</p>
+                            <p style="color: var(--gray-700); font-weight: 600;">₹{{ item.product.price }} × {{
+                                item.quantity }}</p>
+                        </div>
+                    </div>
+                    <div class="cart-mobile-footer">
+                        <span style="font-weight: 700; font-size: 1.25rem;" class="gradient-text">₹{{ item.total_price
+                            }}</span>
+                        <a href="{% url 'remove_from_cart' item.id %}"
+                            style="padding: 0.5rem 1rem; background: #fee2e2; color: #dc2626; border-radius: 9999px; text-decoration: none; font-size: 0.875rem; font-weight: 600; transition: all 0.3s ease;">
+                            <i class="fas fa-trash"></i> Remove
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Cart Summary -->
+            <div class="cart-summary">
+                <div class="cart-summary-content">
+                    <a href="{% url 'shop' %}" class="btn-continue-shopping">
+                        <i class="fas fa-arrow-left"></i>
+                        Continue Shopping
+                    </a>
+
+                    <div class="cart-total-section">
+                        <p class="cart-total-label">Total Amount</p>
+                        <p class="cart-total-amount gradient-text">₹{{ cart.total_price }}</p>
+                    </div>
+
+                    <button class="btn-checkout">
+                        <span>Proceed to Checkout</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <!-- Empty Cart -->
+        <div class="empty-state">
+            <div class="empty-icon">🛒</div>
+            <h2 class="empty-title font-display">Your Cart is Empty</h2>
+            <p class="empty-description">Looks like you haven't added anything yet. Start exploring our amazing
+                collection!</p>
+            <a href="{% url 'shop' %}" class="btn-hero btn-hero-primary">
+                <i class="fas fa-shopping-bag"></i>
+                Start Shopping
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

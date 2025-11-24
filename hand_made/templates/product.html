@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container section">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <a href="{% url 'index' %}">Home</a>
+        <i class="fas fa-chevron-right"></i>
+        <a href="{% url 'shop' %}">Shop</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>{{ product.name }}</span>
+    </nav>
+
+    <div class="product-detail">
+        <div class="product-detail-grid">
+
+            <!-- Product Image -->
+            <div class="product-detail-image">
+                <div class="product-image-container">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    {% else %}
+                    <div
+                        style="width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 6rem; opacity: 0.3;">
+                        🎨</div>
+                    {% endif %}
+                </div>
+
+                {% if not product.available %}
+                <div class="product-badge out-of-stock-badge" style="position: absolute; top: 1.5rem; right: 1.5rem;">
+                    OUT OF STOCK
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Product Details -->
+            <div class="product-detail-content">
+                <div class="product-category-badge">{{ product.category.name }}</div>
+
+                <h1 class="product-detail-title font-display">{{ product.name }}</h1>
+
+                <p class="product-detail-description">
+                    {{ product.description|default:"This beautiful handcrafted piece is made with love and attention to
+                    detail. Perfect for gifting or adding a unique touch to your space." }}
+                </p>
+
+                <!-- Price -->
+                <div class="product-price-section">
+                    <span class="product-detail-price gradient-text">₹{{ product.price }}</span>
+                    {% if product.available %}
+                    <span class="stock-badge">
+                        <i class="fas fa-check-circle"></i>
+                        In Stock
+                    </span>
+                    {% endif %}
+                </div>
+
+                <!-- Actions -->
+                <div class="product-actions">
+                    {% if product.available %}
+                    <a href="{% url 'add_to_cart' product.id %}" class="btn-add-to-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        Add to Cart
+                    </a>
+                    {% else %}
+                    <button disabled class="btn-add-to-cart" style="background: var(--gray-300); cursor: not-allowed;">
+                        Out of Stock
+                    </button>
+                    {% endif %}
+
+                    <button class="btn-wishlist">
+                        <i class="far fa-heart"></i>
+                        Wishlist
+                    </button>
+                </div>
+
+                <!-- Product Info -->
+                <div class="product-info-card">
+                    <div class="product-info-item">
+                        <i class="fas fa-tag"></i>
+                        <div>
+                            <p class="product-info-label">Category</p>
+                            <p class="product-info-value">{{ product.category.name }}</p>
+                        </div>
+                    </div>
+
+                    <div class="product-info-item">
+                        <i class="fas fa-barcode"></i>
+                        <div>
+                            <p class="product-info-label">Product ID</p>
+                            <p class="product-info-value">HM-{{ product.id|stringformat:"04d" }}</p>
+                        </div>
+                    </div>
+
+                    <div class="product-info-item">
+                        <i class="fas fa-hand-sparkles"></i>
+                        <div>
+                            <p class="product-info-label">Craftsmanship</p>
+                            <p class="product-info-value">100% Handmade</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Products Section -->
+    <div style="margin-top: 5rem;">
+        <h2 class="section-title font-display gradient-text" style="text-align: center; margin-bottom: 2rem;">You Might
+            Also Like</h2>
+        <div
+            style="background: linear-gradient(to bottom right, #f3e8ff, #fce7f3); border-radius: var(--radius-xl); padding: 2rem; text-align: center;">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">✨</div>
+            <p style="color: var(--gray-600); font-size: 1.125rem;">More amazing products coming soon!</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

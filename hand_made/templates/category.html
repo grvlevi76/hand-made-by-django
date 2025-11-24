@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container section">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <a href="{% url 'index' %}">Home</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>Shop</span>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="section-header">
+        <h1 class="section-title font-display gradient-text">
+            {% if request.GET.category %}{{ request.GET.category|title }}{% else %}Our Collection{% endif %}
+        </h1>
+        <p class="section-subtitle">Explore our curated selection of handcrafted treasures</p>
+    </div>
+
+    <div class="shop-layout">
+
+        <!-- Sidebar Filters -->
+        <aside class="shop-sidebar">
+            <!-- Categories -->
+            <div class="filter-card">
+                <h3 class="filter-title">
+                    <i class="fas fa-filter"></i>
+                    Categories
+                </h3>
+                <ul class="filter-list">
+                    <li class="filter-item">
+                        <a href="{% url 'shop' %}"
+                            class="filter-link {% if not request.GET.category %}active{% endif %}">
+                            <span>All Products</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </li>
+                    {% for cat in categories %}
+                    <li class="filter-item">
+                        <a href="{% url 'shop' %}?category={{ cat.slug }}"
+                            class="filter-link {% if request.GET.category == cat.slug %}active{% endif %}">
+                            <span>{{ cat.name }}</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Price Range -->
+            <div class="filter-card price-filter">
+                <h3 class="filter-title">
+                    <i class="fas fa-rupee-sign"></i>
+                    Price Range
+                </h3>
+                <input type="range" min="0" max="5000" class="price-slider">
+                <div class="price-range">
+                    <span>₹0</span>
+                    <span>₹5000+</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Product Grid -->
+        <div class="shop-main">
+            <!-- Toolbar -->
+            <div class="shop-toolbar">
+                <div class="product-count">
+                    <strong class="gradient-text">{{ products.count }}</strong> Products Found
+                </div>
+
+                <select class="sort-select">
+                    <option>Sort: Featured</option>
+                    <option>Price: Low to High</option>
+                    <option>Price: High to Low</option>
+                    <option>Newest First</option>
+                </select>
+            </div>
+
+            {% if products %}
+            <div class="product-grid">
+                {% for product in products %}
+                <div class="product-card">
+                    <!-- Image -->
+                    <div class="product-image-wrapper">
+                        {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+                        {% else %}
+                        <div
+                            style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 4rem; opacity: 0.3;">
+                            🎨</div>
+                        {% endif %}
+
+                        <!-- Badge -->
+                        <div class="product-badge">{{ product.category.name }}</div>
+
+                        {% if not product.available %}
+                        <div class="product-badge" style="left: 1rem; right: auto; background: #dc2626;">OUT OF STOCK
+                        </div>
+                        {% endif %}
+
+                        <!-- Quick view overlay -->
+                        <div class="product-overlay">
+                            <a href="{% url 'product_detail' product.slug %}" class="btn-quick-view">Quick View</a>
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="product-content">
+                        <h3><a href="{% url 'product_detail' product.slug %}" class="product-title">{{ product.name
+                                }}</a></h3>
+                        <p class="product-description">{{ product.description|default:"Handcrafted with love" }}</p>
+
+                        <div class="product-footer">
+                            <span class="product-price gradient-text">₹{{ product.price }}</span>
+                            {% if product.available %}
+                            <a href="{% url 'add_to_cart' product.id %}" class="btn-add-cart">
+                                <i class="fas fa-shopping-cart"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="empty-state">
+                <div class="empty-icon">🔍</div>
+                <h2 class="empty-title font-display gradient-text">No Products Found</h2>
+                <p class="empty-description">Try adjusting your filters or browse all products.</p>
+                <a href="{% url 'shop' %}" class="btn-hero btn-hero-primary">Clear Filters</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

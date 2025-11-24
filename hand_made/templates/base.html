@@ -1,0 +1,151 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hand Made | Aap ki dukaan</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{% static 'hand_made/style.css' %}">
+
+  {% block styles %}{% endblock %}
+</head>
+
+<body>
+
+  <!-- Navbar with Glassmorphism -->
+  <header class="glass">
+    <div class="container">
+      <nav class="navbar">
+        <!-- Logo -->
+        <a href="{% url 'index' %}" class="logo">
+          <div class="logo-icon">🎁</div>
+          <div class="logo-text">
+            <h1 class="gradient-text">Aap ki dukaan</h1>
+            <p class="logo-subtitle">Handcrafted with Love</p>
+          </div>
+        </a>
+
+        <!-- Nav Links (Desktop) -->
+        <div class="nav-links">
+          <a href="{% url 'index' %}">Home</a>
+          <a href="{% url 'shop' %}">Shop</a>
+          <a href="{% url 'about' %}">About</a>
+          <a href="{% url 'contact' %}">Contact</a>
+        </div>
+
+        <!-- Icons -->
+        <div class="nav-icons">
+          <a href="{% url 'cart' %}" class="icon-btn">
+            <i class="fas fa-shopping-cart"></i>
+            {% if cart_count %}
+            <span class="cart-badge">{{ cart_count }}</span>
+            {% endif %}
+          </a>
+
+          {% if user.is_authenticated %}
+          <a href="{% url 'account' %}" class="icon-btn" title="Dashboard">
+            <i class="fas fa-user"></i>
+          </a>
+          {% else %}
+          <a href="{% url 'login' %}" class="btn-primary">Login</a>
+          {% endif %}
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <!-- Premium Footer -->
+  <footer>
+    <div class="footer-gradient-line"></div>
+
+    <div class="container footer-content">
+      <div class="footer-grid">
+
+        <!-- Brand -->
+        <div>
+          <div class="footer-brand">
+            <div class="footer-brand-icon">🎁</div>
+            <div class="footer-brand-text">
+              <h2>Aap ki dukaan</h2>
+              <p>Handcrafted Excellence</p>
+            </div>
+          </div>
+          <p class="footer-description">
+            Discover unique, handcrafted gifts that tell a story. Each piece is made with love and attention to detail,
+            perfect for every special occasion.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="{% url 'shop' %}">Shop All</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div class="footer-section">
+          <h3>Get in Touch</h3>
+          <ul class="footer-contact">
+            <li>
+              <i class="fas fa-phone"></i>
+              <span>+91-9808609242</span>
+            </li>
+            <li>
+              <i class="fas fa-envelope"></i>
+              <span>Hand_made_heaven@gmail.com</span>
+            </li>
+            <li>
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Dayalbagh, Agra</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="footer-bottom">
+        <p>&copy; {% now "Y" %} Aap ki dukaan. Crafted with <span style="color: #ec4899;">❤</span> in India.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decorative gradient orbs -->
+    <div class="footer-decorative footer-decorative-1"></div>
+    <div class="footer-decorative footer-decorative-2"></div>
+  </footer>
+
+</body>
+
+</html>
