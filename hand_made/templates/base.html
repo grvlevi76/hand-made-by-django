@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap"
     rel="stylesheet">
 
   <!-- Font Awesome -->
@@ -25,15 +25,17 @@
 
 <body>
 
-  <!-- Navbar with Glassmorphism -->
+  <!-- Navbar -->
   <header class="glass">
     <div class="container">
       <nav class="navbar">
         <!-- Logo -->
         <a href="{% url 'index' %}" class="logo">
-          <div class="logo-icon">🎁</div>
+          <div class="logo-icon">
+            <i class="fas fa-leaf"></i>
+          </div>
           <div class="logo-text">
-            <h1 class="gradient-text">Aap ki dukaan</h1>
+            <h1>Articraft</h1>
             <p class="logo-subtitle">Handcrafted with Love</p>
           </div>
         </a>
@@ -46,21 +48,29 @@
           <a href="{% url 'contact' %}">Contact</a>
         </div>
 
-        <!-- Icons -->
+        <!-- Right Side: Search & Icons -->
         <div class="nav-icons">
-          <a href="{% url 'cart' %}" class="icon-btn">
-            <i class="fas fa-shopping-cart"></i>
+          <!-- Search Bar -->
+          <form action="{% url 'shop' %}" method="GET" class="nav-search">
+            <i class="fas fa-search"></i>
+            <input type="text" name="q" placeholder="Search products..." value="{{ request.GET.q|default:'' }}">
+          </form>
+
+          <!-- Cart -->
+          <a href="{% url 'cart' %}" class="icon-btn" title="Cart">
+            <i class="fas fa-shopping-bag"></i>
             {% if cart_count %}
             <span class="cart-badge">{{ cart_count }}</span>
             {% endif %}
           </a>
 
+          <!-- User Account -->
           {% if user.is_authenticated %}
           <a href="{% url 'account' %}" class="icon-btn" title="Dashboard">
-            <i class="fas fa-user"></i>
+            <i class="far fa-user"></i>
           </a>
           {% else %}
-          <a href="{% url 'login' %}" class="btn-primary">Login</a>
+          <a href="{% url 'login' %}" class="btn-primary" style="padding: 0.4rem 1.2rem; font-size: 0.9rem;">Login</a>
           {% endif %}
         </div>
       </nav>
@@ -73,77 +83,56 @@
     {% endblock %}
   </main>
 
-  <!-- Premium Footer -->
+  <!-- Footer -->
   <footer>
-    <div class="footer-gradient-line"></div>
-
     <div class="container footer-content">
       <div class="footer-grid">
 
         <!-- Brand -->
         <div>
-          <div class="footer-brand">
-            <div class="footer-brand-icon">🎁</div>
-            <div class="footer-brand-text">
-              <h2>Aap ki dukaan</h2>
-              <p>Handcrafted Excellence</p>
-            </div>
+          <div class="footer-brand-text">
+            <h2>Articraft</h2>
+            <p class="footer-description">
+              Discover unique, handcrafted gifts that tell a story. Each piece is made with love and attention to
+              detail.
+            </p>
           </div>
-          <p class="footer-description">
-            Discover unique, handcrafted gifts that tell a story. Each piece is made with love and attention to detail,
-            perfect for every special occasion.
-          </p>
-          <div class="social-links">
-            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+          <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+            <a href="#" style="color: #999; font-size: 1.2rem;"><i class="fab fa-facebook"></i></a>
+            <a href="#" style="color: #999; font-size: 1.2rem;"><i class="fab fa-instagram"></i></a>
+            <a href="#" style="color: #999; font-size: 1.2rem;"><i class="fab fa-twitter"></i></a>
           </div>
         </div>
 
         <!-- Quick Links -->
         <div class="footer-section">
           <h3>Quick Links</h3>
-          <ul class="footer-links">
-            <li><a href="{% url 'shop' %}">Shop All</a></li>
-            <li><a href="{% url 'about' %}">About Us</a></li>
-            <li><a href="{% url 'contact' %}">Contact</a></li>
-            <li><a href="#">FAQ</a></li>
-          </ul>
+          <div class="footer-links">
+            <a href="{% url 'shop' %}">Shop Collection</a>
+            <a href="{% url 'about' %}">Our Story</a>
+            <a href="{% url 'contact' %}">Contact Us</a>
+            <a href="#">Shipping Policy</a>
+          </div>
         </div>
 
         <!-- Contact -->
         <div class="footer-section">
-          <h3>Get in Touch</h3>
+          <h3>Contact Us</h3>
           <ul class="footer-contact">
-            <li>
-              <i class="fas fa-phone"></i>
-              <span>+91-9808609242</span>
-            </li>
-            <li>
-              <i class="fas fa-envelope"></i>
-              <span>Hand_made_heaven@gmail.com</span>
-            </li>
-            <li>
-              <i class="fas fa-map-marker-alt"></i>
-              <span>Dayalbagh, Agra</span>
-            </li>
+            <li><i class="fas fa-phone-alt" style="width: 20px;"></i> +91-9808609242</li>
+            <li><i class="fas fa-envelope" style="width: 20px;"></i> hello@handmade.com</li>
+            <li><i class="fas fa-map-marker-alt" style="width: 20px;"></i> Dayalbagh, Agra, India</li>
           </ul>
-        </div>
-      </div>
-
-      <!-- Bottom Bar -->
-      <div class="footer-bottom">
-        <p>&copy; {% now "Y" %} Aap ki dukaan. Crafted with <span style="color: #ec4899;">❤</span> in India.</p>
-        <div class="footer-bottom-links">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
         </div>
       </div>
     </div>
 
-    <!-- Decorative gradient orbs -->
-    <div class="footer-decorative footer-decorative-1"></div>
-    <div class="footer-decorative footer-decorative-2"></div>
+    <!-- Bottom Bar -->
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; {% now "Y" %} Articraft. All rights reserved.</p>
+      </div>
+    </div>
   </footer>
 
 </body>

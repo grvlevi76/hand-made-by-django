@@ -41,7 +41,15 @@
                         </td>
                         <td class="cart-price">₹{{ item.product.price }}</td>
                         <td class="cart-quantity">
-                            <span class="quantity-badge">{{ item.quantity }}</span>
+                            <div class="cart-quantity-control" style="justify-content: center;">
+                                <a href="{% url 'update_cart_quantity' item.id 'decrease' %}" class="btn-qty"><i
+                                        class="fas fa-minus"></i></a>
+                                <span class="quantity-badge"
+                                    style="width: 2.5rem; height: 2.5rem; font-size: 1rem; margin: 0;">{{ item.quantity
+                                    }}</span>
+                                <a href="{% url 'update_cart_quantity' item.id 'increase' %}" class="btn-qty"><i
+                                        class="fas fa-plus"></i></a>
+                            </div>
                         </td>
                         <td class="cart-total gradient-text">₹{{ item.total_price }}</td>
                         <td class="cart-remove">

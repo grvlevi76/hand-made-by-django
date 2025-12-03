@@ -2,6 +2,106 @@
 {% load static %}
 
 {% block content %}
-<h1>contact-></h1>
+<div class="container section">
+    <div class="section-header">
+        <h1 class="section-title font-display">Get in Touch</h1>
+        <p class="section-subtitle">We'd love to hear from you</p>
+    </div>
 
+    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 4rem;">
+        <!-- Contact Info -->
+        <div>
+            <div
+                style="background: var(--primary-color); color: white; padding: 2rem; border-radius: var(--radius-lg); height: 100%;">
+                <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 2rem;">Contact Information</h3>
+
+                <div style="margin-bottom: 2rem;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                        <i class="fas fa-phone-alt"></i>
+                        <span style="font-weight: 600;">Phone</span>
+                    </div>
+                    <p style="opacity: 0.9;">+91-9808609242</p>
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                        <i class="fas fa-envelope"></i>
+                        <span style="font-weight: 600;">Email</span>
+                    </div>
+                    <p style="opacity: 0.9;">hello@articraft.com</p>
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span style="font-weight: 600;">Address</span>
+                    </div>
+                    <p style="opacity: 0.9;">123 Artisan Lane,<br>Dayalbagh, Agra,<br>Uttar Pradesh, India</p>
+                </div>
+
+                <div style="margin-top: 4rem;">
+                    <p style="margin-bottom: 1rem;">Follow us:</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-facebook"></i></a>
+                        <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" style="color: white; font-size: 1.5rem;"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div
+            style="background: white; padding: 2rem; border-radius: var(--radius-lg); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);">
+            <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem;">Send us a Message</h3>
+            <form>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div>
+                        <label
+                            style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-main);">First
+                            Name</label>
+                        <input type="text"
+                            style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-md);"
+                            placeholder="John">
+                    </div>
+                    <div>
+                        <label
+                            style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-main);">Last
+                            Name</label>
+                        <input type="text"
+                            style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-md);"
+                            placeholder="Doe">
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label
+                        style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-main);">Email
+                        Address</label>
+                    <input type="email"
+                        style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-md);"
+                        placeholder="john@example.com">
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label
+                        style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-main);">Subject</label>
+                    <input type="text"
+                        style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-md);"
+                        placeholder="How can we help?">
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <label
+                        style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: var(--text-main);">Message</label>
+                    <textarea rows="5"
+                        style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-md);"
+                        placeholder="Write your message here..."></textarea>
+                </div>
+
+                <button type="button" class="btn-primary" style="width: 100%;">Send Message</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

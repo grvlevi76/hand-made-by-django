@@ -54,11 +54,22 @@
                     <i class="fas fa-rupee-sign"></i>
                     Price Range
                 </h3>
-                <input type="range" min="0" max="5000" class="price-slider">
-                <div class="price-range">
-                    <span>₹0</span>
-                    <span>₹5000+</span>
-                </div>
+                <form action="{% url 'shop' %}" method="GET" id="price-filter-form">
+                    {% if request.GET.category %}
+                    <input type="hidden" name="category" value="{{ request.GET.category }}">
+                    {% endif %}
+                    {% if request.GET.q %}
+                    <input type="hidden" name="q" value="{{ request.GET.q }}">
+                    {% endif %}
+
+                    <input type="range" name="price_max" min="0" max="5000"
+                        value="{{ request.GET.price_max|default:'5000' }}" class="price-slider"
+                        onchange="this.form.submit()">
+                    <div class="price-range">
+                        <span>₹0</span>
+                        <span>Max: ₹{{ request.GET.price_max|default:'5000' }}</span>
+                    </div>
+                </form>
             </div>
         </aside>
 
@@ -70,12 +81,27 @@
                     <strong class="gradient-text">{{ products.count }}</strong> Products Found
                 </div>
 
-                <select class="sort-select">
-                    <option>Sort: Featured</option>
-                    <option>Price: Low to High</option>
-                    <option>Price: High to Low</option>
-                    <option>Newest First</option>
-                </select>
+                <form action="{% url 'shop' %}" method="GET">
+                    {% if request.GET.category %}
+                    <input type="hidden" name="category" value="{{ request.GET.category }}">
+                    {% endif %}
+                    {% if request.GET.q %}
+                    <input type="hidden" name="q" value="{{ request.GET.q }}">
+                    {% endif %}
+                    {% if request.GET.price_max %}
+                    <input type="hidden" name="price_max" value="{{ request.GET.price_max }}">
+                    {% endif %}
+
+                    <select name="sort" class="sort-select" onchange="this.form.submit()">
+                        <option value="" {% if not request.GET.sort %}selected{% endif %}>Sort: Featured</option>
+                        <option value="price_low" {% if request.GET.sort=='price_low' %}selected{% endif %}>Price: Low
+                            to High</option>
+                        <option value="price_high" {% if request.GET.sort=='price_high' %}selected{% endif %}>Price:
+                            High to Low</option>
+                        <option value="newest" {% if request.GET.sort=='newest' %}selected{% endif %}>Newest First
+                        </option>
+                    </select>
+                </form>
             </div>
 
             {% if products %}
